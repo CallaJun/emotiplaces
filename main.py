@@ -39,7 +39,7 @@ api = twitter.Api(consumer_key='tz919ngYsNOWfLyprIBBwKyXh', consumer_secret='xBk
 
 class HomeHandler(webapp2.RequestHandler):
     def get(self):
-    	template_values = {#'name' : self.request.get('name'),
+        template_values = {#'name' : self.request.get('name'),
         }
 
 
