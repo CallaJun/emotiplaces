@@ -15,11 +15,13 @@
 # limitations under the License.
 #
 import webapp2
+import operator
 import jinja2
 import os
 import urllib2
 import json
 import pprint
+import twitter
 from collections import defaultdict
 jinja_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -33,10 +35,13 @@ def oauth_req(url, key, secret, http_method="GET", post_body=None, http_headers=
     pprint content home_timeline = oauth_req( 'https://api.twitter.com/1.1/statuses/home_timeline.json', 'abcdefg', 'hijklmnop' )
     '''
 
+api = twitter.Api(consumer_key='tz919ngYsNOWfLyprIBBwKyXh', consumer_secret='xBkSOCXzpgQLdx3qndQpymhbjuaYa0OnvGltvwTT6tq8b17hh3', access_token_key='2296734954-FRJfx5Ef0JvdrLxZ9BfAGjyVRu6txCEUoDp1uDN', access_token_secret='cL3yQcN6NTflXEPWUJyqjUh3psE05EheDlaVLXqroiIuR')
+
 class HomeHandler(webapp2.RequestHandler):
     def get(self):
     	template_values = {#'name' : self.request.get('name'),
         }
+
 
         response = urllib2.urlopen('https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=4PVC0RLB5XVMRVOGN1FLS2MVQCYXLBWGNHXPSGLGKL3KWOCO&client_secret=MMGCYSNJBAIBOSHRTTGHDM4IPT20AMWGCDLCKDJN5045MEM2&v=20140920')
         body = response.read()
@@ -48,6 +53,15 @@ class HomeHandler(webapp2.RequestHandler):
             for category in venue['categories']:
                 categorynames.add(category['name'])
                 categoryvenues[category['name']].append(venue)
+                search_results = api.GetSearch(self, term='name', geocode=loc, count=1000, result_type='recent')
+                emojis = defaultdict(0)
+                for result in search_results:
+                    for character in result['text']:
+                        if ord(character) > 10000: #edit; if it's an emoji
+                            emojis[character] += 1
+                sorted_emojis = sort(emojis.iteritems(), key=operator.itemgetter(1))
+                #top 3 emojis are here
+                print sorted_emojis[-1], sorted_emojis[-2], sorted_emojis[-3]
 
 
         template_values['categorynames'] = categorynames
