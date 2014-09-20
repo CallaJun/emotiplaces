@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Emotiplaces</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+<style>
+	.row {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.col-md-4 {
+		padding-top: 80px;
+	}
+</style>
+<body>
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="container">
+		</div>
+	</nav>
+	<div class="row">
+		<div class="col-md-8">
+			<h1>Places</h1>
+			<table class="table table-hover">
+				{% for categoryvenue in categoryvenues %}
+					<tr>
+						<td><a href="https://foursquare.com/v/{{categoryvenue['id']}}">{{categoryvenue['name']}}</a></td>
+						<td>:)</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<div class="col-md-4">
+			Categories
+			<br><form action="go">
+				<select class="form-control" name="category">
+					{% for categoryname in categorynames %}
+						<option value="{{categoryname}}">{{categoryname}}</option>
+					{% endfor %}
+				</select>
+			    <input type="hidden" name="category" value={{category}}>
+			    <br><button type="submit" class="btn btn-default">Go</button>
+			</form>
+		</div>
+	</div>
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+</html>
