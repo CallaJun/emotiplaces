@@ -1,34 +1,34 @@
+<!DOCTYPE HTML>
 <html>
 <head>
-	<title>Emotiplaces</title>
+<!-- 	<link href="emotiplaces/views/stylesheet.css" rel="stylesheet" type="text/css">
+ --><title>EmotiPlaces</title>
+	<div class="h1_new"><h1> Emoti Places </h1></div>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" media="screen" href="main.css">
 </head>
 <style>
 	.row {
-		padding-left: 20px;
-		padding-right: 20px;
+		padding-left: 50px;
+		padding-right: 50px;
 	}
 	.col-md-4 {
 		padding-top: 80px;
 	}
+	.h1_new {
+		padding-left: 0px;
+		text-align: center;
+		font-family: "Helvetica Neue 25 UltraLight";
+		font-size:50px;
+	}
 </style>
-<body>
-	<nav class="navbar navbar-default navbar-static-top" role="navigation">
-		<div class="container">
-		</div>
-	</nav>
+<body bgcolor="#D8F6CE">
 	<div class="row">
 		<div class="col-md-8">
-			<h1>Places</h1>
-			<table class="table table-hover">
+			<h1>What's up?</h1>
 				{% for categoryvenue in categoryvenues %}
-					<tr>
-						<td><a href="https://foursquare.com/v/{{categoryvenue['id']}}">{{categoryvenue['name']}}</a></td>
-						<td>:)</td>
-					</tr>
+					<a href="https://foursquare.com/v/{{categoryvenue['id']}}"><button type="button" class="btn btn-default">{{categoryvenue['name']}}
+					</button></a>
 				{% endfor %}
-			</table>
 		</div>
 		<div class="col-md-4">
 			Categories
